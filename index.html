@@ -1,0 +1,693 @@
+base64 /mnt/user-data/uploads/IMG_2398.jpeg | head -c 100
+
+{
+  "returncode" : 0,
+  "stdout" : "\/9j\/4R6gRXhpZgAATU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAA\nXgEoAAMAAAABAAIAAAITAAM",
+  "stderr" : ""
+}
+
+BASE64=$(base64 -w 0 /mnt/user-data/uploads/IMG_2398.jpeg)
+echo "data:image/jpeg;base64,${BASE64}" | wc -c
+
+{
+  "returncode" : 0,
+  "stdout" : "951360\n",
+  "stderr" : ""
+}
+
+# Resize image to reasonable size for embedding
+python3 -c "
+from PIL import Image
+import base64, io
+img = Image.open('/mnt/user-data/uploads/IMG_2398.jpeg')
+img = img.resize((400, 400), Image.LANCZOS)
+buf = io.BytesIO()
+img.save(buf, format='JPEG', quality=85)
+b64 = base64.b64encode(buf.getvalue()).decode()
+print(len(b64))
+with open('/home/claude/photo_b64.txt', 'w') as f:
+    f.write(b64)
+"
+
+{
+  "returncode" : 0,
+  "stdout" : "27956\n",
+  "stderr" : ""
+}
+
+
+PHOTO_B64=$(cat /home/claude/photo_b64.txt)
+
+cat > /mnt/user-data/outputs/mukaila_portfolio.html << HTMLEOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mukaila Mubarak Adedayo — CRM & Automation Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0A0A0A;
+    --white: #F7F6F2;
+    --accent: #00C896;
+    --accent-dim: #00C89620;
+    --mid: #1A1A1A;
+    --border: #2A2A2A;
+    --text-muted: #888;
+    --font-main: 'Space Grotesk', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5rem 4rem;
+    gap: 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-text { max-width: 560px; }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-name span { color: var(--accent); }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: #BBBAB5;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 460px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: var(--black);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PHOTO */
+  .hero-photo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .photo-frame {
+    position: relative;
+    width: 340px;
+    height: 340px;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.35;
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border: 1px dashed var(--border);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .photo-frame::after { animation: none; }
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: grayscale(20%);
+    display: block;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 5rem; border-bottom: 1px solid var(--border); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 3.5rem;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .tool-card {
+    background: var(--black);
+    padding: 1.8rem 1.5rem;
+    transition: background 0.2s;
+  }
+  .tool-card:hover { background: var(--mid); }
+  .tool-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+
+}
+  .tool-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .tool-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .project-card {
+    background: var(--black);
+    padding: 2.5rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s ease;
+  }
+  .project-card:hover { background: var(--mid); }
+  .project-card:hover::before { height: 100%; }
+
+  .project-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.08em;
+  }
+  .project-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.9rem;
+    color: #BBBAB5;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .project-result {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .project-result::before {
+    content: '→';
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+  .service-card:hover { border-color: var(--accent); }
+  .service-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .service-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .service-desc {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-text {
+    font-size: 1rem;
+    color: #BBBAB5;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .contact-detail-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .contact-detail a { color: var(--white); text-decoration: none; }
+  .contact-detail a:hover { color: var(--accent); }
+
+  .contact-cta-box {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    border-radius: 4px;
+  }
+  .contact-cta-box h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .contact-cta-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-photo-wrap { order: -1; }
+    .photo-frame { width: 220px; height: 220px; }
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MMA_PORTFOLIO</div>
+  <ul class="nav-links">
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border-bottom:1px solid var(--border); padding-top: 8rem;">
+  <div class="hero-text">
+    <div class="hero-eyebrow">CRM &amp; Automation Specialist</div>
+    <h1 class="hero-name">Mukaila<br><span>Mubarak</span><br>Adedayo</h1>
+    <p class="hero-tagline">I turn complex, manual business processes into single-click automations that save time, reduce cost, and generate measurable ROI. That is the best investment any business can make.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="photo-frame">
+      <img src="data:image/jpeg;base64,${PHOTO_B64}" alt="Mukaila Mubarak Adedayo">
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">40%</div>
+    <div class="stat-label">Lead conversion increase</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">70%</div>
+    <div class="stat-label">Manual order handling reduced</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">60%</div>
+    <div class="stat-label">Fewer missed follow-ups</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">6+</div>
+    <div class="stat-label">CRM platforms mastered</div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label">Stack</div>
+  <h2 class="section-title">Tools I Work With</h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">GoHighLevel</div>
+      <div class="tool-role">CRM, Funnels, Automations</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔶</div>
+      <div class="tool-name">HubSpot</div>
+      <div class="tool-role">CRM, Workflows, Lead Nurturing</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🟣</div>
+      <div class="tool-name">Zoho CRM</div>
+      <div class="tool-role">Admin, Blueprint, Pipelines</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔗</div>
+      <div class="tool-name">Zapier</div>
+      <div class="tool-role">Integration, API, Webhooks</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔁</div>
+      <div class="tool-name">Pabbly Connect</div>
+      <div class="tool-role">Automation, Multi-step Flows</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">💬</div>
+      <div class="tool-name">ManyChat</div>
+      <div class="tool-role">Chatbot, Messenger Flows</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📧</div>
+      <div class="tool-name">Mailchimp</div>
+      <div class="tool-role">Email Campaigns, Sequences</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🛍️</div>
+      <div class="tool-name">Shopify</div>
+      <div class="tool-role">Order Automation, Integration</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2 class="section-title">Projects &amp; Results</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="project-tag">GHL / EMAIL</span>
+      <h3 class="project-title">Tommy's Credit Repair Sales Funnel</h3>
+      <p class="project-desc">Designed and built a full sales funnel in GoHighLevel with automated follow-up sequences, lead segmentation and email campaigns targeted at credit repair prospects.</p>
+      <div class="project-result">40% increase in lead conversions</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">ZAPIER / HUBSPOT</span>
+      <h3 class="project-title">LinkedIn to HubSpot Lead Capture</h3>
+      <p class="project-desc">Built a Zapier integration that automatically pulls lead data from LinkedIn into HubSpot CRM the moment a connection request is sent, eliminating manual entry and replacing a paid lead generation tool.</p>
+      <div class="project-result">Zero manual data entry, one tool cost eliminated</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">PABBLY / SHOPIFY</span>
+      <h3 class="project-title">Shopify + WhatsApp Order Automation</h3>
+      <p class="project-desc">Automated order notifications and updates between Shopify and WhatsApp using Pabbly Connect, removing the need for manual order handling across the fulfilment team.</p>
+      <div class="project-result">70% reduction in manual order handling</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">GHL / WORKFLOWS</span>
+      <h3 class="project-title">Tony Plumbing Follow-up Automation</h3>
+      <p class="project-desc">Built automated follow-up workflows in GoHighLevel to ensure no lead fell through the cracks, with timed reminders and task assignments based on pipeline stage.</p>
+      <div class="project-result">60% reduction in missed follow-ups</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">GHL / REAL ESTATE</span>
+      <h3 class="project-title">Maverick Real Estate Funnel Rebuild</h3>
+      <p class="project-desc">Revamped landing pages and lead capture funnels in GoHighLevel for a real estate business, improving qualified lead flow and engagement across the buyer journey.</p>
+      <div class="project-result">Improved qualified lead engagement</div>
+    </div>
+    <div class="project-card">
+      <span class="project-tag">ZAPIER / MULTI-PLATFORM</span>
+      <h3 class="project-title">Oyinns Touch Salon Lead Sync (UK)</h3>
+      <p class="project-desc">Connected Google Sheets, Instagram Leads and Facebook Ads via Zapier for a UK-based salon, enabling real-time lead sync across all acquisition channels into one system.</p>
+      <div class="project-result">Real-time multi-channel lead visibility</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title">Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <h3 class="service-title">CRM Setup &amp; Administration</h3>
+      <p class="service-desc">Full CRM configuration including pipelines, roles, profiles, workflow rules, blueprints and dashboards across GoHighLevel, HubSpot and Zoho CRM.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <h3 class="service-title">Automation &amp; Workflow Building</h3>
+      <p class="service-desc">Design and build automated workflows that replace manual, repetitive tasks with triggered sequences, saving time and reducing human error across your team.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <h3 class="service-title">System Integration</h3>
+      <p class="service-desc">Connect your tools through Zapier and Pabbly Connect, including API and webhook-based integrations across Shopify, LinkedIn, WhatsApp, Facebook and more.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <h3 class="service-title">CRM Migration</h3>
+      <p class="service-desc">Migrate your CRM from one platform to another with full workflow rebuilds, data validation and post-launch testing. Specialising in migrations into GoHighLevel.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <h3 class="service-title">Email Marketing &amp; Funnels</h3>
+      <p class="service-desc">Build segmented email campaigns, nurture sequences and high-converting sales funnels that move prospects from cold to closed without manual intervention.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <h3 class="service-title">Automation Consulting</h3>
+      <p class="service-desc">Audit your current systems, identify inefficiencies, and map a clear automation strategy that reduces cost and unlocks capacity for the work that actually grows your business.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Let's Work Together</h2>
+  <div class="contact-inner">
+    <div>
+      <p class="contact-text">Whether you need a CRM set up from scratch, your tools connected, or your manual processes replaced with automation, I am ready to help. I work with businesses remotely and move fast.</p>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Email</span>
+        <a href="mailto:adedayomubarak128@gmail.com">adedayomubarak128@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Location</span>
+        <span>Ibadan, Nigeria (Remote)</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Available</span>
+        <span style="color: var(--accent);">Open to contracts &amp; full-time roles</span>
+      </div>
+    </div>
+    <div class="contact-cta-box">
+      <h3>Ready to simplify your systems?</h3>
+      <p>Tell me what your biggest manual headache is and I will show you how to automate it. Most solutions take less time to build than you think.</p>
+      <a href="mailto:adedayomubarak128@gmail.com" class="btn-primary">Send Me a Message</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Mukaila Mubarak Adedayo</span>
+  <span>CRM &amp; Automation Specialist · adedayomubarak128@gmail.com</span>
+</footer>
+
+</body>
+</html>
+HTMLEOF
+echo "Done"
+
+
+
+{
+  "returncode" : 0,
+  "stdout" : "Done\n",
+  "stderr" : ""
+}
