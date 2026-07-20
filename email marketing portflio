@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adedayo Mubarak | Email Marketing Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#f6f8fb;
+color:#222;
+line-height:1.6;
+}
+
+header{
+background:#0F172A;
+color:white;
+padding:70px 30px;
+text-align:center;
+}
+
+header h1{
+font-size:42px;
+margin-bottom:15px;
+}
+
+header p{
+font-size:18px;
+opacity:.9;
+max-width:750px;
+margin:auto;
+}
+
+.btn{
+display:inline-block;
+margin-top:30px;
+background:#2563EB;
+color:white;
+padding:14px 30px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+.container{
+
+max-width:1150px;
+margin:auto;
+padding:60px 25px;
+
+}
+
+.section-title{
+
+font-size:34px;
+margin-bottom:15px;
+
+}
+
+.subtitle{
+
+color:#555;
+margin-bottom:40px;
+
+}
+
+.skills{
+
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:25px;
+
+}
+
+.skill{
+
+background:white;
+padding:12px 18px;
+border-radius:30px;
+box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+gap:30px;
+
+margin-top:40px;
+
+}
+
+.card{
+
+background:white;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.mockup{
+
+background:#eef3ff;
+padding:25px;
+
+}
+
+.email{
+
+background:white;
+border-radius:12px;
+padding:20px;
+border:1px solid #ddd;
+
+}
+
+.email h4{
+
+font-size:20px;
+margin-bottom:10px;
+
+}
+
+.banner{
+
+background:#2563EB;
+color:white;
+padding:18px;
+text-align:center;
+font-weight:bold;
+border-radius:8px;
+margin:15px 0;
+
+}
+
+.button{
+
+display:inline-block;
+margin-top:15px;
+background:#2563EB;
+color:white;
+padding:12px 22px;
+border-radius:6px;
+font-size:14px;
+
+}
+
+.info{
+
+padding:25px;
+
+}
+
+.info h3{
+
+margin-bottom:12px;
+
+}
+
+.workflow{
+
+background:#F8FAFC;
+padding:18px;
+border-left:5px solid #2563EB;
+margin-top:20px;
+font-size:14px;
+
+}
+
+footer{
+
+background:#0F172A;
+color:white;
+text-align:center;
+padding:50px 20px;
+margin-top:70px;
+
+}
+
+.contact{
+
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:20px;
+
+}
+
+.contact a{
+
+color:white;
+text-decoration:none;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Adedayo Mubarak Mukaila</h1>
+
+<p>Email Marketing & CRM Automation Specialist helping businesses increase conversions through strategic email campaigns, customer journeys and marketing automation.</p>
+
+<a class="btn" href="#portfolio">View Portfolio</a>
+
+</header>
+
+<div class="container">
+
+<h2 class="section-title">About Me</h2>
+
+<p>I create high-converting email campaigns and automated CRM workflows that help businesses nurture leads, retain customers and improve engagement using platforms such as GoHighLevel, HubSpot, Mailchimp, Brevo and Zoho CRM.</p>
+
+<div class="skills">
+
+<div class="skill">GoHighLevel</div>
+
+<div class="skill">HubSpot</div>
+
+<div class="skill">Mailchimp</div>
+
+<div class="skill">Brevo</div>
+
+<div class="skill">Zoho CRM</div>
+
+<div class="skill">Automation</div>
+
+<div class="skill">Customer Journeys</div>
+
+<div class="skill">Email Copywriting</div>
+
+<div class="skill">Lead Nurturing</div>
+
+</div>
+
+</div>
+
+<div class="container" id="portfolio">
+
+<h2 class="section-title">Sample Email Campaigns</h2>
+
+<p class="subtitle">Illustrative campaign concepts demonstrating email design, messaging, and CRM automation strategy.</p>
+
+<div class="grid">
+
+<!-- CARD 1 -->
+
+<div class="card">
+
+<div class="mockup">
+
+<div class="email">
+
+<h4>Welcome to Our Community 👋</h4>
+
+<div class="banner">
+
+WELCOME OFFER
+
+</div>
+
+<p>Thanks for joining us. Here's everything you need to get started plus an exclusive welcome discount.</p>
+
+<div class="button">
+
+Claim Offer
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Welcome Series</h3>
+
+<p>A multi-email onboarding sequence designed to introduce the brand, educate subscribers and encourage the first purchase.</p>
+
+<div class="workflow">
+
+Lead Signup → Welcome Email → Brand Story → Offer → Purchase
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 2 -->
+
+<div class="card">
+
+<div class="mockup">
+
+<div class="email">
+
+<h4>🔥 Weekend Sale</h4>
+
+<div class="banner">
+
+SAVE 30%
+
+</div>
+
+<p>Limited-time promotion with urgency and strong CTA.</p>
+
+<div class="button">
+
+Shop Now
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Promotional Campaign</h3>
+
+<p>Designed to increase conversions during seasonal or limited-time promotions.</p>
+
+<div class="workflow">
+
+Audience Segmentation → Promo Email → Reminder → Last Chance
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 3 -->
+
+<div class="card">
+
+<div class="mockup">
+
+<div class="email">
+
+<h4>Appointment Reminder</h4>
+
+<div class="banner">
+
+See You Tomorrow
+
+</div>
+
+<p>Your appointment is confirmed. Need to reschedule?</p>
+
+<div class="button">
+
+Manage Booking
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Appointment Automation</h3>
+
+<p>Automated reminders that reduce no-shows and improve customer experience.</p>
+
+<div class="workflow">
+
+Booking → Confirmation → 24hr Reminder → Follow-up Review Request
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 4 -->
+
+<div class="card">
+
+<div class="mockup">
+
+<div class="email">
+
+<h4>We Miss You ❤️</h4>
+
+<div class="banner">
+
+COME BACK & SAVE
+
+</div>
+
+<p>Reconnect inactive subscribers with personalised offers.</p>
+
+<div class="button">
+
+Reactivate
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Re-engagement Campaign</h3>
+
+<p>Targets inactive subscribers using behaviour-based automation.</p>
+
+<div class="workflow">
+
+Inactive 60 Days → Offer → Reminder → Exit Sequence
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD 5 -->
+
+<div class="card">
+
+<div class="mockup">
+
+<div class="email">
+
+<h4>Thank You!</h4>
+
+<div class="banner">
+
+Leave a Review ⭐⭐⭐⭐⭐
+
+</div>
+
+<p>Your feedback helps us serve you better.</p>
+
+<div class="button">
+
+Leave Review
+
+</div>
+
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Review Request Automation</h3>
+
+<p>Automatically requests customer reviews after a completed service.</p>
+
+<div class="workflow">
+
+Purchase → Thank You → Review Request → Follow-up Reminder
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<h2>Let's Work Together</h2>
+
+<p>Email Marketing • CRM Automation • Customer Journey Design</p>
+
+<div class="contact">
+
+<a href="#">Email</a>
+
+<a href="#">LinkedIn</a>
+
+<a href="#">GitHub</a>
+
+<a href="#">Fiverr</a>
+
+</div>
+
+<p style="margin-top:30px;font-size:14px;opacity:.7;">© 2026 Adedayo Mubarak Mukaila</p>
+
+</footer>
+
+</body>
+</html>
