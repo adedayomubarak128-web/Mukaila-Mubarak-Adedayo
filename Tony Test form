@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony Plumbing Ltd - Service Enquiry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tony Plumbing Ltd</h1>
+    <p>Fill in the form below and we will call you back within 2 hours.</p>
+
+    <!-- PASTE YOUR ZOHO EMBED CODE HERE -->
+
+</body>
+</html>
